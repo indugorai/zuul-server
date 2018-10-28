@@ -1,0 +1,46 @@
+spring:
+  application:
+     name: zuul
+     
+server:
+  port: 9991     
+
+eureka:  
+  client:
+    registerWithEureka: true
+    fetchRegistry: true           
+    serviceUrl:     
+         defaultZone: http://myeurekaserver.com:9000/eureka/
+#  instance:
+#      preferIpAddress: true      
+
+zuul:
+  #Service will be mapped under the /api URI
+  prefix: /api
+#  comment to disable auto-registering all services read from Eureka
+  ignoredServices: '*'
+  routes:
+    test:
+      path: /redirect/**
+      url: http://google.com
+    profile:
+      path: /profile/**
+      url: http://WKWIN7840425.global.publicisgroupe.net:rest-Service:8080
+    catalog:
+      path: /catalog/**
+      serviceId: rest-Service
+    serviceIds:
+      path: /serviceIds/**
+      url: http://WKWIN7840425.global.publicisgroupe.net:9081
+
+
+      
+      
+#rest-Service:
+#  ribbon:
+#    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+#    listOfServers: http://WKWIN7840425.global.publicisgroupe.net:8001,http://WKWIN7840425.global.publicisgroupe.net:8002,http://WKWIN7840425.global.publicisgroupe.net:8003
+#    ConnectTimeout: 1000
+#    ReadTimeout: 3000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100      
